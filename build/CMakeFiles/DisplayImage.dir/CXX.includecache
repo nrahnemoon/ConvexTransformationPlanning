@@ -11,6 +11,8 @@ opencv2/core/core.hpp
 -
 opencv2/highgui/highgui.hpp
 -
+opencv2/imgproc.hpp
+-
 iostream
 -
 string
