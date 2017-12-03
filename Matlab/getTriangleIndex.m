@@ -5,10 +5,14 @@ function [triangle_ind] = getTriangleIndex(p, P, TRI)
     xq = p(1);
     yq = p(2);
     
-    vertex_of_interest = round(p);
-    [~,voi_id]=ismember(vertex_of_interest, P, 'rows');
+    dist=bsxfun(@hypot,P(:,1)-xq,P(:,2)-yq);
+    voi_id = find(dist==min(dist));
     
-    [tri_ids, ~] = find(TRI==voi_id);
+    if length(voi_id)>1
+        'here'
+    end
+    
+    [tri_ids, ~] = find(TRI==voi_id(1));
     
     tri_v_ids = TRI(tri_ids,:);
     for i = 1:length(tri_v_ids)
