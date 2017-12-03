@@ -1,4 +1,4 @@
-function [indices] = getPath(p1, p2, P, TRI)
+function [indices] = getPath(p1, p2, P, TRI, step_size)
 %GETPATH Given p1, p2 return the triangle indices on the straightline
 %   p1: start point [x,y]
 %   p2: end point [x,y]
@@ -6,7 +6,7 @@ function [indices] = getPath(p1, p2, P, TRI)
 %   TRI: set of delaunay, k x 3 matrix in [ind1, ind2, ind3] format
 
 %   indices: indices within TRI that are on path of p1 to p2
-   
+   getTriangleIndex(p1, P, TRI)
 
 end
 

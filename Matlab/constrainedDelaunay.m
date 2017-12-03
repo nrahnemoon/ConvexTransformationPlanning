@@ -18,11 +18,11 @@ function [P,TRI] = constrainedDelaunay(filename)
 
     % get boundary indices
     [~,contour_ind]=ismember(contour,[Y, X],'rows');
-    contour_next = circshift(contour_ind,-1)
+    contour_next = circshift(contour_ind,-1);
     C = [contour_ind, contour_next];
     %% try delaunay with constraint
     % do dealunay
-    DT = delaunayTriangulation(X,Y,C)
+    DT = delaunayTriangulation(X,Y,C);
 
 
     subplot(1,2,1)
