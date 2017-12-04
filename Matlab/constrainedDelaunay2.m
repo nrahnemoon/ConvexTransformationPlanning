@@ -22,5 +22,4 @@ inside = isInterior(DT);
 TRI = DT.ConnectivityList(inside, :);
 triangles = TRI;
 
-
 writeToOff('starTrek.off', xPos, yPos, triangles, xMax, yMax)

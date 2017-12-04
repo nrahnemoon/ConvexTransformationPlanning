@@ -46,4 +46,27 @@ function [P,TRI] = constrainedDelaunayFromImage(filename)
     % this is what we need
     TRI = DT.ConnectivityList(inside, :);
     P = DT.Points;
+    
+    nContour = size(C, 1);
+    xPos = X(C(:, 1), 1);
+    yPos = Y(C(:, 1), 1);
+    yMax = size(shape, 1);
+    xMax = size(shape, 2);
+    cPos = [linspace(1, nContour, nContour)', circshift(linspace(1, nContour, nContour), -1)'];
+    for i = 1:200
+        xCoor = rand() * (max(xPos)-min(xPos)) + min(xPos);
+        yCoor = rand() * (max(yPos)-min(yPos)) + min(yPos);
+        if inpolygon(xCoor, yCoor, X, Y)
+            xPos = [ xPos; xCoor ];
+            yPos = [ yPos; yCoor ];
+        end
+    end
+    
+    DT = delaunayTriangulation(xPos, yPos, cPos);
+    inside = isInterior(DT);
+    TRI = DT.ConnectivityList(inside, :);
+    triangles = TRI;
+
+
+    writeToOff('img.off', xPos, yPos, triangles, xMax, yMax)
 end

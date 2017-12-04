@@ -1,0 +1,32 @@
+h = impoly
+pos = h.getPosition();
+
+xBoundary = pos(:,1);
+yBoundary = pos(:,2);
+cBoundary = [linspace(1, size(X, 1), size(X, 1))', circshift(linspace(1, size(X, 1), size(X, 1))', -1)];
+
+numSteps = 30;
+xStep = (max(xBoundary) - min(xBoundary))/numSteps;
+yStep = (max(yBoundary) - min(yBoundary))/numSteps;
+
+xPos = [];
+yPos = [];
+for i = min(xBoundary):xStep:max(xBoundary)
+    for j = min(yBoundary):yStep:max(yBoundary)
+        if inpolygon(i, j, xBoundary, yBoundary)
+            xPos = [xPos; i];
+            yPos = [yPos; j];
+        end
+    end
+end
+
+pos = [xPos, yPos];
+for i = 1:size(xPos, 1)
+    [~, topLeftIndex] = ismember([xPos(i)+xStep, yPos(i)], pos, 'rows');
+end
+
+subplot(1,2,1)
+hold on
+triplot(DT.ConnectivityList(inside, :),DT.Points(:,1),DT.Points(:,2))
+axis image
+set(gca,'Ydir','reverse')
