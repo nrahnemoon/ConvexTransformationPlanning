@@ -1,26 +1,16 @@
-function [P,TRI] = constrainedDelaunay(filename)
-%CONSTRIANEDDELAUNAY Given input map image, output Points and Triangluation
-%   filename: input image filename
-%   P: set of points coordinate
-%   TRI: set of triangluation, from indices of P
+function [P,TRI] = constrainedDelaunay(X,Y,contour)
+%CONSTRAINEDDELAUNAY Given a shape defined by set of X,Y points and its
+%contour coordinate, get delaunay
+%   X: x coordinates of points in shape
+%   Y: y coordinates of points in shape
+%   contour: the coordinates of points on the contour of the shape
 
-    %% process input image
-    % get pixel coordinate of free space
-    shape = im2bw(imread(filename));
-
-    free_ind = find(shape);
-    [Y, X] = ind2sub(size(shape), free_ind);
-
-    % a starting point for tracing boundary
-    [start_y, start_x] = ind2sub(size(shape),free_ind(1));
-    start_p = [start_y, start_x];
-    contour = bwtraceboundary(shape, start_p, 'W');
-
-    % get boundary indices
-    [~,contour_ind]=ismember(contour,[Y, X],'rows');
+%   P: set of delaunay points (should be the same as [X Y])
+%   TRI: set of delaunay triangle indices
+    [~,contour_ind]=ismember(contour,[X, Y],'rows');
     contour_next = circshift(contour_ind,-1);
     C = [contour_ind, contour_next];
-    %% try delaunay with constraint
+    
     % do dealunay
     DT = delaunayTriangulation(X,Y,C);
 
@@ -47,3 +37,4 @@ function [P,TRI] = constrainedDelaunay(filename)
     TRI = DT.ConnectivityList(inside, :);
     P = DT.Points;
 end
+
