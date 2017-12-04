@@ -5,26 +5,21 @@ function [triangle_ind] = getTriangleIndex(p, X, Y, TRI)
     xq = p(1);
     yq = p(2);
     
-    dist=bsxfun(@hypot,X-xq,Y-yq);
-    voi_id = find(dist==min(dist));
+    min_dist = inf;
     
-%     [tri_ids, ~] = find(TRI==voi_id(1));
-%     
-%     tri_v_ids = TRI(tri_ids,:);
     for i = 1:length(TRI)
         tri_v = TRI(i,:);
         xv = X(tri_v);
         yv = Y(tri_v);
         in = inpolygon(xq,yq,xv,yv);
         if in
-            break
+            [ geom, iner, cpmo ] = polygeom(xv, yv);
+            if (geom(2)-p(1))^2+(geom(3)-p(2))^2 < min_dist
+                triangle_ind = i;
+            end
         end
     end
     
-    if in == 0
-        disp('cant find triangle')
-    end
     
-    triangle_ind = i;
 end
 
