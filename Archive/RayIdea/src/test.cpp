@@ -67,14 +67,6 @@ int main( int argc, char** argv )
 
     std::vector<double> slopes = get_slopes(boundary, {50, 50});
 
-    
-    // for(auto i : boundary){
-    //     std::cout<<i.first<<" "<<i.second<<std::endl;
-    // }
-
-    // std::sort(slopes.begin(),slopes.end());
-
-
     Mat C = Mat(boundary.size(),K, CV_64F, double(0));
 
     for(int i = 0; i < C.rows; i++) {
@@ -83,10 +75,6 @@ int main( int argc, char** argv )
         }
     }
 
-
-    // for(auto i : slopes){
-    //     std::cout<<i<<std::endl;
-    // }
 
     cv::namedWindow( "Display window", WINDOW_AUTOSIZE );
     cv::imshow( "Display window", image );                  
