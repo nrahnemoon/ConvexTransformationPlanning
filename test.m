@@ -1,11 +1,11 @@
-[X, Y, TRI] = readOff('shape2.off')
+[X, Y, TRI] = readOff('shape2.off');
 TRI = TRI+1;
 subplot(1,2,1)
 hold on
 triplot(TRI, X, Y);
 axis image
 
-[X_trans, Y_trans, ~] = readOff('shape2_omt.off')
+[X_trans, Y_trans, ~] = readOff('shape2_omt.off');
 
 subplot(1,2,2)
 triplot(TRI, X_trans, Y_trans);
@@ -31,10 +31,12 @@ plot(goal(1),goal(2),'r*');
 indices = getPath(start, goal, X_trans, Y_trans,TRI, 0.01);
 path = getPathAlongCentroids(indices, X,Y,TRI);
 pathDistance = getPathDistance(path);
-disp("pathDistance = " + pathDistance);
-[optimalDist, optimalIndices, ~, G] = getShortestPath(p1_tri_id, p2_tri_id, X, Y, TRI);
-optimalPath = getPathAlongCentroids(optimalIndices, X, Y, TRI);
-disp("optimalDistance = " + optimalDist);
+fprintf('pathDistance = %f\n', pathDistance);
 subplot(1,2,1)
 plot(path(:,1),path(:,2), 'r', 'linewidth', 2)
+drawnow;
+
+[optimalDist, optimalIndices, ~, G] = getShortestPath(p1_tri_id, p2_tri_id, X, Y, TRI);
+optimalPath = getPathAlongCentroids(optimalIndices, X, Y, TRI);
+fprintf('optimalDistance = %f\n', optimalDist);
 plot(optimalPath(:,1),optimalPath(:,2), 'b', 'linewidth', 2)

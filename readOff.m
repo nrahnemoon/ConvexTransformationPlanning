@@ -13,7 +13,7 @@ function [xPos, yPos, triangles] = readOff(fileName)
     i = 3;
     pos = 1;
     while 1
-        data = strsplit(lines{i,1})
+        data = strsplit(lines{i,1});
         if size(data, 2) ~= 8
             break;
         end
