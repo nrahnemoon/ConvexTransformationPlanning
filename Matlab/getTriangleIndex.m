@@ -7,6 +7,7 @@ function [triangle_ind] = getTriangleIndex(p, X, Y, TRI)
     
     min_dist = inf;
     
+    triangle_ind = 0;
     for i = 1:length(TRI)
         tri_v = TRI(i,:);
         xv = X(tri_v);

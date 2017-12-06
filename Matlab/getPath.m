@@ -1,4 +1,4 @@
-function [indices] = getPath(p1, p2, X, Y, TRI, step_size)
+function [indices] = getPath(p1, p2, X, Y, TRI, TRI_neighbors, step_size)
   %GETPATH Given p1, p2 return the triangle indices on the straightline
   %   p1: start point [x,y]
   %   p2: end point [x,y]
@@ -14,9 +14,16 @@ function [indices] = getPath(p1, p2, X, Y, TRI, step_size)
    while go
        p1(1)=p1(1)+step_size_x;
        p1(2)=p1(2)+step_size_y;
-       k=getTriangleIndex(p1, X, Y, TRI);
-       if k~=indices(end)
-           indices=[indices k];
+       ids_to_check = TRI_neighbors{indices(end)};
+       TRI_to_check = TRI(ids_to_check,:);
+       k=getTriangleIndex(p1, X, Y, TRI_to_check);
+       if k==0
+           indices = [indices getTriangleIndex(p1, X, Y, TRI);];
+           continue
+       end
+       
+       if k~=1
+           indices=[indices ids_to_check(k)];
        end
        if sqrt(((p2(1)-p1(1))^2)+ ((p2(2)-p1(2))^2))<step_size
           p1(1)=p2(1); 

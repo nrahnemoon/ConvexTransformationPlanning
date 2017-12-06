@@ -1,11 +1,11 @@
-function [dist, path, pred, G] = getShortestPath(start, goal, X, Y, TRI)
+function [dist, path, pred, G] = getShortestPath(start, goal, X, Y, TRI, TRI_neighbors)
 
     numNodes = size(TRI,1);
     G = zeros(numNodes, numNodes);
 
     for i = 1:numNodes
         currTrianglePos = getPathAlongCentroids(i, X, Y, TRI);
-        neighbors = getTriangleNeighbors(i, TRI);
+        neighbors = TRI_neighbors{i};
         for j = 1:size(neighbors, 1)
             neighborPos = getPathAlongCentroids(neighbors(j), X, Y, TRI);
             G(i, neighbors(j)) = sqrt((currTrianglePos(1) - neighborPos(1)).^2 + (currTrianglePos(2) - neighborPos(2)).^2);
