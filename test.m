@@ -1,11 +1,11 @@
-[X, Y, TRI] = readOff('starTrek.off')
+[X, Y, TRI] = readOff('shape2.off')
 TRI = TRI+1;
 subplot(1,2,1)
 hold on
 triplot(TRI, X, Y);
 axis image
 
-[X_trans, Y_trans, ~] = readOff('starTrek_omt.off')
+[X_trans, Y_trans, ~] = readOff('shape2_omt.off')
 
 subplot(1,2,2)
 triplot(TRI, X_trans, Y_trans);

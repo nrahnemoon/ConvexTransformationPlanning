@@ -40,4 +40,4 @@ triplot(triangles, xPos, yPos);
 axis image
 set(gca,'Ydir','reverse')
 
-writeToOff('shape2.off', xPos, yPos, triangles, 1, 1)
+writeToOff('shape4.off', xPos, yPos, triangles, 1, 1);
