@@ -1,7 +1,7 @@
-[X, Y, TRI] = readOff('shape2.off');
+[X, Y, TRI] = readOff('shape.off');
 TRI = TRI+1;
 
-[X_trans, Y_trans, ~] = readOff('shape2_omt.off');
+[X_trans, Y_trans, ~] = readOff('shape_omt.off');
 
 TRI_neighbors = cell(length(TRI),1);
 for i = 1:length(TRI)
